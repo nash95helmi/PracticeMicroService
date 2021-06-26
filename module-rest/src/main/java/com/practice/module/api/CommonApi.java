@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface CommonApi {
 
-//    @GetMapping(value = "/isAppRunning")
-//    boolean getIsAppRunning() throws Exception;
-
-    @RequestMapping(value = "/isAppRunning")
+    @GetMapping(value = "/isAppRunning") //Equivalent to  @RequestMapping(value = "/isAppRunning", RequestMethod = GET)
     String getIsAppRunning() throws Exception;
+
 }
