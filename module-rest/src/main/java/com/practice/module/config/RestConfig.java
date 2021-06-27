@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -25,6 +26,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+//@EnableAspectJAutoProxy
 //@EnableTransactionManagement
 //@EnableJpaRepositories(basePackages = "com.practice.module",
 //                        entityManagerFactoryRef = PERSISTENCE_UNIT_NAME, transactionManagerRef = REST_TRX_MANAGER)
