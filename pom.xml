@@ -33,7 +33,6 @@
     <modules>
         <module>app-rest</module>
         <module>module-rest</module>
-        <module>RestApplication</module>
     </modules>
 
     <properties>

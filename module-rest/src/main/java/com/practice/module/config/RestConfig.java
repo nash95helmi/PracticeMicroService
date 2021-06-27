@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+//import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -50,6 +50,9 @@ public class RestConfig {
     @Value("${rest.datasource.maxPoolSize:10}")
     int maxPool;
 
+    @Value("${rest.datasource.connectionTestQuery}")
+    String testQuery;
+
     @Bean(name = "restDB")
     public DataSource restDataSource() {
         HikariConfig dataSource = new HikariConfig();
@@ -58,6 +61,7 @@ public class RestConfig {
         dataSource.setPassword(password);
         dataSource.setMinimumIdle(1);
         dataSource.setMaximumPoolSize(2);
+        dataSource.setConnectionTestQuery(testQuery);
 
         LOGGER.info("Initiate restDB........");
         return new HikariDataSource(dataSource);
