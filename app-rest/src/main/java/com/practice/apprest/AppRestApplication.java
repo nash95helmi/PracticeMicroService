@@ -1,5 +1,6 @@
 package com.practice.apprest;
 
+import com.practice.module.constant.WebConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +45,7 @@ public class AppRestApplication extends SpringBootServletInitializer {
 	 */
 	@Bean
 	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
-		return factory -> factory.setContextPath("/app");
+		return factory -> factory.setContextPath(WebConstant.appContextPath);
 	}
 
 	@Bean
