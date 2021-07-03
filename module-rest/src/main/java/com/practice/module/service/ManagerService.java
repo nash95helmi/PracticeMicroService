@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ManagerService {
@@ -27,5 +26,16 @@ public class ManagerService {
         ManagerVO managerVO = managerDao.findById(id).orElse(null);
         LOGGER.info("[getManagersById] Id : {}, Manager : {}", id, managerVO);
         return managerVO;
+    }
+
+    public String updateManagerDetail(String managerId, ManagerVO managerVO) {
+        ManagerVO manager = getManagersById(managerId);
+
+        if (manager == null)
+            return "Update Failed, managerId not authorized";
+
+        managerDao.saveAndFlush(managerVO);
+        LOGGER.info("[updateManagerDetail] managerId : {}, updateDate : {}", manager, managerVO);
+        return "Update successful";
     }
 }

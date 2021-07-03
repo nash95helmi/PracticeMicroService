@@ -39,7 +39,12 @@ public class ManagerController implements ManagerApi {
     }
 
     @Override
-    public ManagerVO getManagerByIdPathVar(String id) {
-        return managerService.getManagersById(id);
+    public ManagerVO getManagerByIdPathVar(String sessionToken, String token, String managerId, String id) {
+        return managerService.getManagersById(token);
+    }
+
+    @Override
+    public String updateManagerDetail(String token, String managerId, ManagerVO managerVO) throws Exception {
+        return managerService.updateManagerDetail(token, managerVO);
     }
 }

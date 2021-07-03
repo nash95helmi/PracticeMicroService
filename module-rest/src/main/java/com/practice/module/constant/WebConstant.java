@@ -14,5 +14,6 @@ public class WebConstant {
         public static final String findAll = "/findAll";
         public static final String findByIdReqParam = "/findById";
         public static final String findByIdPathVar = "/findById/{id}";
+        public static final String updateManagerDetail = "/update";
     }
 }
