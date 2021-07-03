@@ -28,4 +28,9 @@ public interface ManagerApi {
     String updateManagerDetail(@RequestHeader(name = "authorization", required = false) String token,
                                @RequestAttribute(name = "ManagerId", required = false) String managerId,
                                @RequestBody ManagerVO managerVO) throws Exception;
+
+    @PutMapping(value = WebConstant.Manager.createManagerDetail)
+    ManagerVO createManagerDetail(@RequestHeader(name = "authorization", required = false) String token,
+                                  @RequestAttribute(name = "ManagerId", required = false) String managerId,
+                                  @RequestBody ManagerVO managerVO) throws Exception;
 }
