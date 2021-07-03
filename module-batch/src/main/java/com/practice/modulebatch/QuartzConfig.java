@@ -79,13 +79,20 @@ public class QuartzConfig {
         return buildTrigger(job, "jobBatchTest", jobBatchTest());
     }
 
-    private Trigger buildTrigger(BatchJobVO job, String jobName, JobDetail jobDetail) {
+    public Trigger buildTrigger(BatchJobVO job, String jobName, JobDetail jobDetail) {
         CronScheduleBuilder cronScheduleBuilder = getCronScheduleBuilder(job.getIntervalTerm());
 
         return TriggerBuilder.newTrigger()
                 .forJob(jobDetail).withIdentity(jobName)
                 .withSchedule(cronScheduleBuilder).build();
 
+    }
+
+    public Trigger buildNewTrigger(TriggerKey triggerKey, Integer interval, String intervalTerm) {
+        CronScheduleBuilder cronScheduleBuilder = getCronScheduleBuilder(intervalTerm);
+
+        return TriggerBuilder.newTrigger().withIdentity(triggerKey)
+                .withSchedule(cronScheduleBuilder).build();
     }
 
     private CronScheduleBuilder getCronScheduleBuilder(String intervalTerm) {
