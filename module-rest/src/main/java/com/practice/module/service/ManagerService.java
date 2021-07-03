@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ManagerService {
@@ -20,5 +21,11 @@ public class ManagerService {
         List<ManagerVO> managerVOS = managerDao.findAll();
         LOGGER.info("[getAllManagers] All Managers : {}", managerVOS);
         return managerDao.findAll();
+    }
+
+    public ManagerVO getManagersById(String id) {
+        ManagerVO managerVO = managerDao.findById(id).orElse(null);
+        LOGGER.info("[getManagersById] Id : {}, Manager : {}", id, managerVO);
+        return managerVO;
     }
 }
