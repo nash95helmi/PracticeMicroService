@@ -30,8 +30,16 @@ public class ManagerController implements ManagerApi {
 
     @Override
     public List<ManagerVO> getAllManagers() {
-        List<ManagerVO> vos = new ArrayList<>();
-        vos = managerService.getAllManagers();
-        return vos;
+        return managerService.getAllManagers();
+    }
+
+    @Override
+    public ManagerVO getManagerByIdReqParam(String id) {
+        return managerService.getManagersById(id);
+    }
+
+    @Override
+    public ManagerVO getManagerByIdPathVar(String id) {
+        return managerService.getManagersById(id);
     }
 }
