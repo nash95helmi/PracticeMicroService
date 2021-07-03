@@ -47,4 +47,9 @@ public class ManagerController implements ManagerApi {
     public String updateManagerDetail(String token, String managerId, ManagerVO managerVO) throws Exception {
         return managerService.updateManagerDetail(token, managerVO);
     }
+
+    @Override
+    public ManagerVO createManagerDetail(String token, String managerId, ManagerVO managerVO) throws Exception {
+        return managerService.createManagerVO(token, managerVO);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ManagerService {
@@ -35,7 +36,19 @@ public class ManagerService {
             return "Update Failed, managerId not authorized";
 
         managerDao.saveAndFlush(managerVO);
-        LOGGER.info("[updateManagerDetail] managerId : {}, updateDate : {}", manager, managerVO);
+        LOGGER.info("[updateManagerDetail] managerId : {}, updateDate : {}", managerId, managerVO);
         return "Update successful";
+    }
+
+    public ManagerVO createManagerVO(String managerId, ManagerVO manager) {
+        ManagerVO managerVO = getManagersById(managerId);
+
+        if (managerVO != null) {
+            manager.setManagerId("M00013");
+            LOGGER.info("[createManagerVO] managerId : {}, updateDate : {}", managerId, managerVO);
+            return managerDao.saveAndFlush(manager);
+        }
+        LOGGER.info("[createManagerVO] Id is not authorized, managerId : {}", managerId);
+        return null;
     }
 }
