@@ -33,6 +33,8 @@
     <modules>
         <module>app-rest</module>
         <module>module-rest</module>
+        <module>app-batch</module>
+        <module>module-batch</module>
     </modules>
 
     <properties>
