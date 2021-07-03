@@ -3,9 +3,7 @@ package com.practice.module.api;
 import com.practice.module.constant.WebConstant;
 import com.practice.module.vo.ManagerVO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,13 @@ public interface ManagerApi {
 
     //findById/M00005
     @GetMapping(value = WebConstant.Manager.findByIdPathVar)
-    ManagerVO getManagerByIdPathVar(@PathVariable("id") String id);
+    ManagerVO getManagerByIdPathVar(@RequestHeader(name = "sessionToken", required = false) String sessionToken,
+                                    @RequestHeader(name = "authorization", required = false) String token,
+                                    @RequestAttribute(name = "managerId", required = false) String managerId,
+                                    @PathVariable(value = "id", required = true) String id);
+
+    @PutMapping(value = WebConstant.Manager.updateManagerDetail)
+    String updateManagerDetail(@RequestHeader(name = "authorization", required = false) String token,
+                               @RequestAttribute(name = "ManagerId", required = false) String managerId,
+                               @RequestBody ManagerVO managerVO) throws Exception;
 }
