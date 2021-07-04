@@ -4,12 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "BATCH_JOB")
@@ -41,4 +39,6 @@ public class BatchJobVO implements Serializable {
     private Integer interval;
     @Column(name = "INTERVAL_TERM")
     private String intervalTerm;
+    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
+    private List<BatchHistoryVO> batchHistories;
 }
