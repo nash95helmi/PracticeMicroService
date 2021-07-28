@@ -34,6 +34,11 @@ public class ManagerController implements ManagerApi {
     }
 
     @Override
+    public List<ManagerVO> getAllManagersByEm() {
+        return managerService.getAllManagersByEm();
+    }
+
+    @Override
     public ManagerVO getManagerByIdReqParam(String id) {
         return managerService.getManagersById(id);
     }

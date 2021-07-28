@@ -1,6 +1,7 @@
 package com.practice.module.service;
 
 import com.practice.module.dao.ManagerDao;
+import com.practice.module.dao.ManagerQueryCall;
 import com.practice.module.vo.ManagerVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,19 @@ public class ManagerService {
     @Autowired
     private ManagerDao managerDao;
 
+    @Autowired
+    private ManagerQueryCall managerQueryCall;
+
     public List<ManagerVO> getAllManagers() {
         List<ManagerVO> managerVOS = managerDao.findAll();
         LOGGER.info("[getAllManagers] All Managers : {}", managerVOS);
         return managerDao.findAll();
+    }
+
+    public List<ManagerVO> getAllManagersByEm() {
+        List<ManagerVO> managerVOS = managerQueryCall.getManagerListByEM();
+        LOGGER.info("[getAllManagersByEm] All Managers : {}", managerVOS);
+        return managerVOS;
     }
 
     public ManagerVO getManagersById(String id) {
