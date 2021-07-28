@@ -16,6 +16,7 @@ import org.springframework.batch.item.ItemProcessor;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Step2NotificationStsProcessor implements ItemProcessor<NotificationStsBO, NotificationStsBO>, StepExecutionListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Step2NotificationStsProcessor.class);
@@ -90,9 +91,9 @@ public class Step2NotificationStsProcessor implements ItemProcessor<Notification
 
     @Override
     public NotificationStsBO process(NotificationStsBO item) throws Exception {
-//        if (item.is) {
-//
-//        }
+        if (Objects.nonNull(item)) {
+            LOGGER.info("[Step2NotificationStsProcessor] process, item : {}", item.toString());
+        }
         return item;
     }
 }

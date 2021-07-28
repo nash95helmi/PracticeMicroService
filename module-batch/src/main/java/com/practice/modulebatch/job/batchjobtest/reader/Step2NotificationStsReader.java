@@ -26,9 +26,9 @@ public class Step2NotificationStsReader implements StepExecutionListener, ItemRe
         if (item != null) {
 //            item.set
         }
-        LOGGER.info("[Step2NotificationStsReader] ***** COMMIT COUNT :{} \n"+ " ***** FILTER COUNT : {} \n" +
+        LOGGER.info("[Step2NotificationStsReader] ***** COMMIT COUNT :{} \n"+ "***** FILTER COUNT : {} \n" +
                 "***** PROCESS SKIP COUNT : {} \n" + "***** READ COUNT : {} \n" +
-                "***** READ SKIP COUNT : {} \n" + "***** ROLLBACK COUNT : {} \n" + "***** SKIP COUNT : {}" +
+                "***** READ SKIP COUNT : {} \n" + "***** ROLLBACK COUNT : {} \n" + "***** SKIP COUNT : {} \n" +
                 "***** WRITE COUNT : {} \n" + "***** WRITE SKIP COUNT : {}",
                 stepExecution.getCommitCount(), stepExecution.getFilterCount(), stepExecution.getProcessSkipCount(),
                 stepExecution.getReadCount(), stepExecution.getReadSkipCount(), stepExecution.getRollbackCount(),

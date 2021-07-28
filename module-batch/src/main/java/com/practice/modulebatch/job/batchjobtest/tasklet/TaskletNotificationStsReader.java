@@ -93,7 +93,7 @@ public class TaskletNotificationStsReader implements Tasklet, StepExecutionListe
         try {
             StringBuilder sql = new StringBuilder();
             sql.append("SELECT * FROM ");
-            sql.append("DOCMST");
+            sql.append("document_manager");
 
             try (Connection connection = dataSource.getConnection()) {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
