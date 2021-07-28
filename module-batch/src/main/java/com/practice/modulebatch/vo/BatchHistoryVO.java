@@ -48,6 +48,6 @@ public class BatchHistoryVO implements Serializable {
     private String starterType;
     @Column(name = "IS_WORKING_DAY")
     private String isWorkingDay;
-    @OneToMany(mappedBy = "history", fetch = FetchType.EAGER)
-    private BatchJobVO job;
+//    @OneToMany(mappedBy = "history", fetch = FetchType.EAGER)
+//    private BatchJobVO job;
 }

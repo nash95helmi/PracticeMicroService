@@ -39,6 +39,6 @@ public class BatchJobVO implements Serializable {
     private Integer interval;
     @Column(name = "INTERVAL_TERM")
     private String intervalTerm;
-    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
-    private List<BatchHistoryVO> batchHistories;
+//    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
+//    private List<BatchHistoryVO> batchHistories;
 }

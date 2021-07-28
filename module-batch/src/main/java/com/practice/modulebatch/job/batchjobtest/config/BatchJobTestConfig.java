@@ -58,7 +58,7 @@ public class BatchJobTestConfig extends AbstractSpringBatchConfiguration {
         return this.dataSource();
     }
     @Autowired
-//    @Qualifier(MsNotificationDSConfig.NAME)
+    @Qualifier(MsNotificationDSConfig.NAME)
     private MsNotificationDSConfig msNotificationDSConfig;
 
 //    @PersistenceContext(unitName = BatchCon)

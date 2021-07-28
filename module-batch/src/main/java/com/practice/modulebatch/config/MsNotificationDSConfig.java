@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@Configuration
+@Configuration(MsNotificationDSConfig.NAME)
 public class MsNotificationDSConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(MsNotificationDSConfig.class);
-//    public static final String NAME = " MsNotificationDS";
+    public static final String NAME = " MsNotificationDS";
 
     @Value("${msnotification.datasource.url}")
     String url;
@@ -26,7 +26,7 @@ public class MsNotificationDSConfig {
     @Value("${msnotification.datasource.datasource.maxPoolSize:2}")
     int maxPool;
 
-    @Bean("MsNotificationDS")
+//    @Bean("MsNotificationDS")
     public DataSource dataSource() {
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setJdbcUrl(url);
