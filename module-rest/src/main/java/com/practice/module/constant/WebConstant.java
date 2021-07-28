@@ -13,8 +13,10 @@ public class WebConstant {
         public static final String ROOT = "/manager";
         public static final String findAll = "/findAll";
         public static final String findAllByEm = "/findAllByEm";
+        public static final String findAllCustom = "/findAllCustom";
         public static final String findByIdReqParam = "/findById";
         public static final String findByIdPathVar = "/findById/{id}";
+        public static final String findByIdPathVarCustom = "/findByIdCustom/{id}";
         public static final String updateManagerDetail = "/update";
         public static final String createManagerDetail = "/create";
     }
