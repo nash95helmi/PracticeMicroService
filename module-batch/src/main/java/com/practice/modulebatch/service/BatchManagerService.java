@@ -1,8 +1,12 @@
 package com.practice.modulebatch.service;
 
+import com.practice.modulebatch.exception.BatchProcessException;
+import com.practice.modulebatch.vo.BatchHistoryVO;
 import com.practice.modulebatch.vo.BatchJobVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,5 +20,8 @@ public class BatchManagerService {
         job.setStatus("IDLE");
         job.setIntervalTerm("0 */5 * ? * *");
         return job;
+    }
+
+    public void createFailedDetail(BatchHistoryVO history, List<BatchProcessException> failedDetails) {
     }
 }

@@ -2,8 +2,12 @@ package com.practice.modulebatch.config;
 
 import org.springframework.batch.core.configuration.annotation.BatchConfigurer;
 import org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
+import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Collection;
@@ -39,5 +43,20 @@ public abstract class AbstractSpringBatchConfiguration extends SimpleBatchConfig
         }
         this.configurer = configurers.iterator().next();
         return this.configurer;
+    }
+
+    @Bean
+    @Override
+    public PlatformTransactionManager transactionManager() {
+        return new ResourcelessTransactionManager();
+    }
+
+    @Bean
+    @Override
+    public JobRepository jobRepository() throws Exception {
+        MapJobRepositoryFactoryBean repo = new MapJobRepositoryFactoryBean();
+        repo.setIsolationLevelForCreate("ISOLATION_DEFAULT");
+        repo.setTransactionManager(transactionManager());
+        return repo.getObject();
     }
 }
