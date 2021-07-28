@@ -13,6 +13,9 @@ public interface ManagerApi {
 //    ResponseEntity<List<ManagerVO>> getAllManagers();
     List<ManagerVO> getAllManagers();
 
+    @GetMapping(value = WebConstant.Manager.findAllByEm)
+    List<ManagerVO> getAllManagersByEm();
+
     ///findById?id=M00005
     @GetMapping(value = WebConstant.Manager.findByIdReqParam)
     ManagerVO getManagerByIdReqParam(@RequestParam String id);
