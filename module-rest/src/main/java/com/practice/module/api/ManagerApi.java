@@ -1,10 +1,10 @@
 package com.practice.module.api;
 
-import com.practice.module.base.JsonResponse;
 import com.practice.module.constant.WebConstant;
 import com.practice.module.vo.ManagerVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.practice.modulebase.controller.JsonResponse;
 
 import java.util.List;
 

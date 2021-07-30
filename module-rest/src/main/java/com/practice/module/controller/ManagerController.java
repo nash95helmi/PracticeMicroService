@@ -1,8 +1,6 @@
 package com.practice.module.controller;
 
 import com.practice.module.api.ManagerApi;
-import com.practice.module.base.AbstractCommonController;
-import com.practice.module.base.JsonResponse;
 import com.practice.module.constant.WebConstant;
 import com.practice.module.service.ManagerService;
 import com.practice.module.vo.ManagerVO;
@@ -11,7 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.practice.modulebase.controller.AbstractCommonController;
+import com.practice.modulebase.controller.JsonResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

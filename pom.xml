@@ -35,6 +35,7 @@
         <module>module-rest</module>
         <module>app-batch</module>
         <module>module-batch</module>
+        <module>module-base</module>
     </modules>
 
     <properties>
