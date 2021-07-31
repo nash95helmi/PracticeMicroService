@@ -22,6 +22,16 @@ public class BatchManagerService {
         return job;
     }
 
+    public BatchJobVO getMaturityRolloverJob(String jobName, boolean eagerFetch) {
+        BatchJobVO job = new BatchJobVO();
+        job.setId("868ea42a08924ff087184bddc5b1a5f3");
+        job.setName("MaturityRolloverJob");
+        job.setActive(true);
+        job.setStatus("IDLE");
+        job.setIntervalTerm("0 */5 * ? * *");
+        return job;
+    }
+
     public void createFailedDetail(BatchHistoryVO history, List<BatchProcessException> failedDetails) {
     }
 }

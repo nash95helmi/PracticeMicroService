@@ -28,6 +28,7 @@ public class MsNotificationDSConfig {
 
 //    @Bean("MsNotificationDS")
     public DataSource dataSource() {
+        LOGGER.info("MsNotificationDS Initiated...........");
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setJdbcUrl(url);
         dataSourceConfig.setUsername(username);
