@@ -1,6 +1,6 @@
 package com.practice.modulebatch;
 
-import com.practice.modulebatch.constant.BatchConstant;
+import com.practice.modulebase.constant.BatchConstant;
 import com.practice.modulebatch.service.BatchManagerService;
 import com.practice.modulebatch.vo.BatchJobVO;
 import org.quartz.*;
@@ -45,12 +45,37 @@ public class QuartzConfig {
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
         SchedulerFactoryBean scheduler = new SchedulerFactoryBean();
-        scheduler.setTriggers(jobBatchTestTrigger());
+        scheduler.setTriggers(jobBatchTestTrigger(), jobMaturityRolloverTrigger());
         scheduler.setQuartzProperties(quartzProperties());
-        scheduler.setJobDetails(jobBatchTest());
+        scheduler.setJobDetails(jobBatchTest(), jobMaturityRollover());
         scheduler.setQuartzProperties(quartzProperties());
         scheduler.setOverwriteExistingJobs(true);
         return scheduler;
+    }
+
+    @Bean
+    public JobDetail jobMaturityRollover() {
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("jobName", BatchConstant.JobName.MATURITYROLLOVER_JOB);
+        jobDataMap.put("input.job.name", BatchConstant.JobName.MATURITYROLLOVER_JOB);
+        jobDataMap.put("jobLauncher", jobLauncher);
+        jobDataMap.put("jobLocator", jobLocator);
+        jobDataMap.put("triggerBy", "5ebaa7818723494d8962e9f69777d43c");
+        jobDataMap.put("workingDir", "-");
+        jobDataMap.put("starterType", "-");
+        jobDataMap.put("workingDay", "-");
+        jobDataMap.put("processDate", new Date());
+        jobDataMap.put("batchService", batchService);
+        jobDataMap.put("jobExplore", jobExplorer);
+
+        return JobBuilder.newJob(CustomQuartzJob.class).withIdentity(BatchConstant.JobName.MATURITYROLLOVER_JOB)
+                .setJobData(jobDataMap).storeDurably().build();
+    }
+
+    @Bean
+    public Trigger jobMaturityRolloverTrigger() {
+        BatchJobVO job = batchService.getMaturityRolloverJob(BatchConstant.JobName.MATURITYROLLOVER_JOB, false);
+        return buildTrigger(job, "jobMaturityRollover", jobMaturityRollover());
     }
 
     @Bean

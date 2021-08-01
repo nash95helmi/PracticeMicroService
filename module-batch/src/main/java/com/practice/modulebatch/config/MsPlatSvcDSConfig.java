@@ -27,7 +27,8 @@ public class MsPlatSvcDSConfig {
     int maxPool;
 
 //    @Bean("MsPlatsvcDS")
-    public DataSource batchDataSource() {
+    public DataSource dataSource() {
+        LOGGER.info("MsPlatSvcDSConfig Initiated...........");
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setJdbcUrl(url);
         dataSourceConfig.setUsername(username);

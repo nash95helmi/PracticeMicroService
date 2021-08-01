@@ -9,33 +9,34 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.practice.modulebase.controller.AbstractCommonController;
+import com.practice.modulebase.controller.JsonResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = WebConstant.Manager.ROOT, produces = MediaType.APPLICATION_JSON_VALUE)
-public class ManagerController implements ManagerApi {
+public class ManagerController extends AbstractCommonController implements ManagerApi {
 
     @Autowired
     ManagerService managerService;
 
-//    Need to configure ResponseEntity 1st
-//    @Override
-//    public ResponseEntity<List<ManagerVO>> getAllManagers() {
-//        List<ManagerVO> vos = new ArrayList<>();
-//        vos = managerService.getAllManagers();
-//        return (ResponseEntity<List<ManagerVO>>) vos;
-//    }
-
     @Override
-    public List<ManagerVO> getAllManagers() {
-        return managerService.getAllManagers();
+    public ResponseEntity<JsonResponse<List<ManagerVO>>> getAllManagers() {
+        List<ManagerVO> vos = managerService.getAllManagers();
+        return successResponse(vos);
     }
 
     @Override
     public List<ManagerVO> getAllManagersByEm() {
         return managerService.getAllManagersByEm();
+    }
+
+    @Override
+    public ResponseEntity<JsonResponse<List<ManagerVO>>> getAllManagersCustom() {
+        List<ManagerVO> vos = managerService.getAllManagers();
+        return successResponse(vos);
     }
 
     @Override
@@ -46,6 +47,18 @@ public class ManagerController implements ManagerApi {
     @Override
     public ManagerVO getManagerByIdPathVar(String sessionToken, String token, String managerId, String id) {
         return managerService.getManagersById(token);
+    }
+
+    @Override
+    public ResponseEntity<JsonResponse<ManagerVO>> getManagerByIdPathVarCustom(String sessionToken, String token,
+                                                                               String managerId, String id) {
+        ManagerVO result = managerService.getManagersById(token);
+        return result != null ? successResponse(result) :
+                failResponse("Mo data found", "1001", token+" is invalid", null, null);
+//        Optional<ManagerVO> opt = Optional.of(result);
+//        return opt.map(this::successResponse)
+//                .orElse(failResponse("Mo data found", "1001", token+" is invalid", null, null));
+//        return successResponse(result);s
     }
 
     @Override
