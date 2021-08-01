@@ -4,6 +4,7 @@ import com.practice.modulebase.exception.BatchProcessException;
 import com.practice.modulebatch.config.MsPlatSvcDSConfig;
 import com.practice.modulebatch.job.maturityrollover.bo.MaturityRolloverBO;
 import com.practice.modulebatch.service.BatchManagerService;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.*;
@@ -12,12 +13,20 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Tuple;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Step1MaturityRolloverWriter extends CompositeItemWriter<MaturityRolloverBO>
         implements StepExecutionListener, ItemWriteListener<MaturityRolloverBO> {
@@ -51,9 +60,19 @@ public class Step1MaturityRolloverWriter extends CompositeItemWriter<MaturityRol
     private String incomingFile;
     public void setIncomingFile(String incomingFile) { this.incomingFile = incomingFile; }
 
+    private DataSource dataSource;
+
     public Step1MaturityRolloverWriter(BatchManagerService batchManagerService) {
         super();
         this.batchManagerService = batchManagerService;
+    }
+
+    public Step1MaturityRolloverWriter(BatchManagerService batchManagerService, EntityManager em,
+                                       DataSource dataSource) {
+        super();
+        this.batchManagerService = batchManagerService;
+        this.em = em;
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -101,11 +120,43 @@ public class Step1MaturityRolloverWriter extends CompositeItemWriter<MaturityRol
     @Override
     public void write(final List<? extends MaturityRolloverBO> items) throws Exception {
         try {
-            LOGGER.info("[Step1MaturityRolloverWriter] items.get(0).....");
+            items.forEach(this::insertIntoDB);
+            LOGGER.info("[Step1MaturityRolloverWriter] items.get(0).....{}", items.get(0));
         } catch (Exception e) {
             LOGGER.error("Step1MaturityRolloverWriter error on write");
             throw e;
         }
+    }
+
+    @SneakyThrows
+    private void insertIntoDB(MaturityRolloverBO item) {
+        if (item.getId() == null) return;
+
+        String sqlQuery = "INSERT INTO T_MRO_FEEDFILE \n" +
+                "(ID, POLICY_NUMBER, TRANSACTION_TYPE, TRXN_REF_NO, DT_COMPLETION, STATUS, CREATE_BY) \n" +
+                "VALUES \n" +
+                "(?, ?, ?, ?, ?, ?, ?)";
+        int result = 0;
+
+        try (Connection connection = dataSource.getConnection()) {
+            LOGGER.info("Step1MaturityRolloverWriter has connection datasource.....");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, item.getId());
+            preparedStatement.setString(2, item.getPolicyNumber());
+            preparedStatement.setString(3, item.getTransactionType());
+            preparedStatement.setString(4, item.getTransactionRefNo());
+            preparedStatement.setString(5, item.getCompletionDate());
+            preparedStatement.setString(6, item.getStatus());
+//            preparedStatement.setDate(7, Date.valueOf(item.getDateCreated().toString()));
+            preparedStatement.setString(7, item.getCreatedBy());
+
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+//            LOGGER.error("Step1MaturityRolloverWriter error insert into T_MRO_FEEDFILE");
+        }
+
+        LOGGER.info("Step1MaturityRolloverWriter insertIntoDB insert value : {}, item : {}", result, item);
     }
 
     @Override

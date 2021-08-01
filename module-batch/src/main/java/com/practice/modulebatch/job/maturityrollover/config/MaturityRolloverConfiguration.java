@@ -105,14 +105,15 @@ public class MaturityRolloverConfiguration extends AbstractSpringBatchConfigurat
 
     @Bean
     public Step1MaturityRolloverWriter step1MaturityWriter() {
-        Step1MaturityRolloverWriter writer = new Step1MaturityRolloverWriter(batchManagerService);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
-        writer.setJdbcTemplate(jdbcTemplate);
-        writer.setBatchEntityManager(em);
-        writer.setIncomingFolder(incomingFolderLocation);
-        writer.setIncomingFile(flatFileName);
-        writer.setInsertWriter(insertWriterMRO());
+//        Step1MaturityRolloverWriter writer = new Step1MaturityRolloverWriter(batchManagerService);
+        Step1MaturityRolloverWriter writer = new Step1MaturityRolloverWriter(batchManagerService, em, msPlatSvcDSConfig.dataSource());
+//        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+//        jdbcTemplate.setDataSource(dataSource());
+//        writer.setJdbcTemplate(jdbcTemplate);
+//        writer.setBatchEntityManager(em);
+//        writer.setIncomingFolder(incomingFolderLocation);
+//        writer.setIncomingFile(flatFileName);
+//        writer.setInsertWriter(insertWriterMRO());
 //        writer.setDeleteWriter(deleteWriterMRO());
         return writer;
     }
