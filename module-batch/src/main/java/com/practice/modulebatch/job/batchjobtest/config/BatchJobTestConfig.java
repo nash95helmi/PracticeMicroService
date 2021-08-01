@@ -54,7 +54,7 @@ public class BatchJobTestConfig extends AbstractSpringBatchConfiguration {
 
     @Override
     public DataSource dataSource() {
-        LOGGER.info("=========>Datasource Initiate<========");
+        LOGGER.info("=========>Datasource BatchJobTest Initiate<========");
         return this.dataSource();
     }
     @Autowired
