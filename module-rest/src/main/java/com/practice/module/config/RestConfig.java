@@ -5,6 +5,7 @@ package com.practice.module.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,34 +27,34 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@Slf4j
 //@EnableAspectJAutoProxy
 //@EnableTransactionManagement
 //@EnableJpaRepositories(basePackages = "com.practice.module",
 //                        entityManagerFactoryRef = PERSISTENCE_UNIT_NAME, transactionManagerRef = REST_TRX_MANAGER)
 public class RestConfig {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(RestConfig.class);
-
     @Value("${rest.datasource.url}")
     String url;
-
     @Value("${rest.datasource.username}")
     String username;
-
     @Value("${rest.datasource.password}")
     String password;
 
-    @Value("${rest.datasource.dialect}")
-    String dialect;
-
-    @Value("${rest.datasource.minIdle:1}")
-    int minIdle;
-
-    @Value("${rest.datasource.maxPoolSize:10}")
-    int maxPool;
-
-    @Value("${rest.datasource.connectionTestQuery}")
-    String testQuery;
+//    @Value("${rest.datasource.url}")
+//    String url;
+//    @Value("${rest.datasource.username}")
+//    String username;
+//    @Value("${rest.datasource.password}")
+//    String password;
+//    @Value("${rest.datasource.dialect}")
+//    String dialect;
+//    @Value("${rest.datasource.minIdle:1}")
+//    int minIdle;
+//    @Value("${rest.datasource.maxPoolSize:10}")
+//    int maxPool;
+//    @Value("${rest.datasource.connectionTestQuery}")
+//    String testQuery;
 
     @Bean(name = "restDB")
     public DataSource restDataSource() {
@@ -63,9 +64,9 @@ public class RestConfig {
         dataSource.setPassword(password);
         dataSource.setMinimumIdle(1);
         dataSource.setMaximumPoolSize(2);
-        dataSource.setConnectionTestQuery(testQuery);
+//        dataSource.setConnectionTestQuery(testQuery);
 
-        LOGGER.info("Initiate restDB........");
+        log.info("Initiate restDB........");
         return new HikariDataSource(dataSource);
     }
 
