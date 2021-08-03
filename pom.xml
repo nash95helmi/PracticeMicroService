@@ -36,6 +36,8 @@
         <module>app-batch</module>
         <module>module-batch</module>
         <module>module-base</module>
+        <module>app-usermanagement</module>
+        <module>module-usermanagement</module>
     </modules>
 
     <properties>
