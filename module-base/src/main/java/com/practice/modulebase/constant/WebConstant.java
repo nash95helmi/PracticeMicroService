@@ -23,7 +23,7 @@ public class WebConstant {
     public class UserManagement {
         public static final String ROOT = "/user";
         public static final String userLogin = "/login";
-        public static final String refreshToken = "/refreshToken";
+        public static final String refreshToken = "/token/refresh";
         public static final String getToken = "/getToken";
     }
 }
